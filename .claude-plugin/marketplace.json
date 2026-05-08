@@ -10,8 +10,8 @@
   "plugins": [
     {
       "name": "vantage-peers",
-      "version": "1.0.0",
-      "description": "Plug-and-play kit for VantagePeers MCP — expert agent, 5 autonomous skills, CLAUDE.md protocol template, .mcp.json config template. Persistent memory, multi-orchestrator messaging, task coordination for agent swarms.",
+      "version": "1.0.1",
+      "description": "Plug-and-play kit for VantagePeers MCP — expert agent, 5 autonomous skills, CLAUDE.md protocol template, .mcp.json config template. Persistent memory, multi-orchestrator messaging, task coordination for agent swarms. — Compatible with Claude Code, Claude Desktop, and Claude.ai web (OAuth 2.1 DCR).",
       "path": "./vantage-peers",
       "installCommand": "/plugin install vantage-peers@vantage-peers-plugin",
       "homepage": "https://github.com/vantageos-agency/vantage-peers-plugin",

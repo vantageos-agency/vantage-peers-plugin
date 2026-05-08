@@ -167,6 +167,54 @@ Always mark messages as read immediately after displaying them.
 
 ---
 
+## Connect VantagePeers MCP
+
+Three supported connection methods — pick the one that matches your client:
+
+### Claude Code
+
+Add to `~/.claude.json` or project `.claude/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "vantage-peers": {
+      "command": "npx",
+      "args": ["-y", "vantage-peers-mcp"],
+      "env": {
+        "CONVEX_URL": "https://your-deployment.convex.cloud",
+        "BEARER_SECRET_MASTER": "your-bearer-token"
+      }
+    }
+  }
+}
+```
+
+### Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+```json
+{
+  "mcpServers": {
+    "vantage-peers": {
+      "command": "npx",
+      "args": ["-y", "vantage-peers-mcp"],
+      "env": {
+        "CONVEX_URL": "https://your-deployment.convex.cloud",
+        "BEARER_SECRET_MASTER": "your-bearer-token"
+      }
+    }
+  }
+}
+```
+
+### Claude.ai web
+
+Use the "Add custom integration" option in Claude.ai settings and enter your VantagePeers server URL. OAuth 2.1 DCR handles registration and authentication automatically — no BEARER token needed. The server advertises its capabilities via `/.well-known/oauth-authorization-server` and Claude.ai completes the flow without manual configuration.
+
+---
+
 ## VantageOS
 
 Built by vantageos-agency. Plugin source: https://github.com/vantageos-agency/plugins
