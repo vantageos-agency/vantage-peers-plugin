@@ -1,0 +1,172 @@
+# VantagePeers Workflow
+
+This workspace is connected to a VantagePeers MCP server. The following protocols are mandatory for all orchestrators operating here.
+
+---
+
+## When to use which tool
+
+Use this decision tree before storing, retrieving, or creating anything:
+
+```
+What do you need?
+├── Retrieve existing information
+│   └── recall query="<topic>" [namespace=<ns>] [limit=5]
+│       before answering ANY factual question about state, decisions, history
+│
+├── Store a new fact or decision
+│   ├── Project-level fact (stack, URLs, architecture) → store_memory type=project namespace=project/<slug>
+│   ├── Global lesson or correction → store_memory type=feedback namespace=global
+│   ├── Long-lived spec or snapshot → store_memory type=reference namespace=project/<slug>
+│   └── Standing rule for all orchestrators → create_mandate scope=global
+│
+├── Track work
+│   ├── Single deliverable → create_task (assignedTo, priority, VERIFICATION+TESTS mandatory)
+│   └── Strategic initiative with phases → create_mission (pilot=<role>)
+│
+├── Communicate
+│   ├── Message to a specific orchestrator → send_message (to=<role>)
+│   └── Structured meeting/decision note → create_briefing_note (topic=daily|decision|review)
+│
+├── Daily records
+│   ├── Daily log → write_diary (orchestrator=<role>, date=today)
+│   └── Session snapshot → /pre-compact skill
+│
+└── Fix a recurring issue
+    └── store_fix_pattern (title, problem, solution, category)
+```
+
+---
+
+## Memory protocol
+
+**After every decision, correction, or new constraint — store immediately.**
+
+```
+store_memory(
+  namespace = "global" | "project/<slug>" | "orchestrator/<role>",
+  type      = "project" | "feedback" | "reference" | "user" | "episode",
+  content   = "<clear, complete description of the fact>",
+  createdBy = "<your role>"
+)
+```
+
+When the operator says "remember this", "store this", "note this", or corrects a previous statement:
+1. Call `store_memory` before anything else.
+2. Confirm: "Stored as [type] memory [ID] in namespace [ns]."
+3. Continue with the task.
+
+Never defer a store. Deferred stores get forgotten. Store now.
+
+**Namespace rules:**
+| What | Namespace |
+|------|-----------|
+| Applies to all projects | `global` |
+| Specific to a codebase | `project/<repo-slug>` |
+| Personal orchestrator state | `orchestrator/<role>` |
+
+---
+
+## Task protocol
+
+**Creating a task** — always include VERIFICATION and TESTS blocks:
+
+```
+create_task(
+  title       = "<imperative verb> <deliverable>",
+  assignedTo  = "<role>",
+  priority    = "urgent" | "high" | "medium" | "low",
+  description = "<what, why, constraints>",
+  brief       = "<link to brief or inline 3-sentence context>",
+  verification = "VERIFICATION:\n- [ ] <proof check 1>\n- [ ] <proof check 2>",
+  tests        = "TESTS:\n- [ ] <test command or action>"
+)
+```
+
+A task without VERIFICATION and TESTS is incomplete and will be rejected by the enforce-task-verification hook.
+
+**Starting a task:**
+```
+start_task(taskId = "<id>")
+```
+Do this before executing. Never execute without starting.
+
+**Completing a task** — `completionNote` is MANDATORY:
+```
+complete_task(
+  taskId        = "<id>",
+  completionNote = "<what was done, what changed, link to PR/commit/artifact>"
+)
+```
+
+Empty completionNote is not acceptable. Write a real sentence.
+
+**Priority guidance:**
+- `urgent` — blocks revenue, blocks other orchestrators, production incident
+- `high` — client-facing, on the critical path this sprint
+- `medium` — important but can wait 1-2 days
+- `low` — nice to have, no dependency
+
+---
+
+## Recall before assumptions
+
+**Never answer a factual question from context alone.**
+
+Before stating anything about: project state, stack decisions, URLs, who owns what, what was agreed, what version is deployed — call:
+
+```
+recall(query = "<what you're about to state>", namespace = "<most likely ns>", limit = 5)
+```
+
+If recall returns no results: state "No memory found — answering from context" and proceed. Do NOT silently guess.
+
+Examples of mandatory recall triggers:
+- "What framework are we using?" → `recall query="stack framework"`
+- "What's the deployed URL?" → `recall query="deployed URL production"`
+- "Did we decide on X?" → `recall query="decision X"`
+- "Who is responsible for Y?" → `recall query="responsible Y assignment"`
+
+---
+
+## Namespaces
+
+| Namespace | When to use |
+|-----------|-------------|
+| `global` | Facts true across all projects — fix patterns, mandates, global preferences |
+| `project/<slug>` | Per-codebase state — stack, URLs, architecture, PRs, blockers |
+| `orchestrator/<role>` | Personal orchestrator state — session snapshots, local preferences |
+
+Examples:
+- `global` — "Never use v.any() in Convex validators"
+- `project/vantage-peers` — "MCP server deployed at https://vantage-peers-prod.railway.app"
+- `orchestrator/sigma` — "Sigma session snapshot 2026-05-08"
+
+When in doubt: use `project/<slug>` for anything tied to a repo, `global` for anything that should apply everywhere.
+
+---
+
+## Messaging protocol
+
+When sending a message to another orchestrator:
+```
+send_message(
+  to      = "<role>",              // lowercase: pi, sigma, tau, phi, etc.
+  content = "<clear message>",
+  channel = "<optional channel>"
+)
+```
+
+When checking messages:
+```
+check_messages(recipient = "<your role>", recipientInstanceId = "<your instanceId>")
+mark_as_read(receiptIds = [<all receipt IDs from above>])
+```
+
+Always mark messages as read immediately after displaying them.
+
+---
+
+## VantageOS
+
+Built by vantageos-agency. Plugin source: https://github.com/vantageos-agency/plugins

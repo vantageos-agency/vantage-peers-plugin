@@ -1,0 +1,19 @@
+{
+  "name": "vantage-peers",
+  "version": "1.0.0",
+  "description": "Plug-and-play kit for VantagePeers MCP — expert agent, autonomous skills, CLAUDE.md template, .mcp.json template. Use after deploying your own VantagePeers MCP server (via Railway template or Convex self-host) to make any Claude Code workspace VP-fluent immediately.",
+  "author": {
+    "name": "vantageos-agency",
+    "email": "hello@vantageos.agency"
+  },
+  "skills": [
+    "skills/check-messages/SKILL.md",
+    "skills/close-day/SKILL.md",
+    "skills/daily-start/SKILL.md",
+    "skills/pre-compact/SKILL.md",
+    "skills/vantage-peers-init/SKILL.md"
+  ],
+  "agents": [
+    "agents/vantage-peers-expert.md"
+  ]
+}

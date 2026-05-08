@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "vantage-peers": {
+      "type": "http",
+      "url": "<YOUR_RAILWAY_URL>/mcp",
+      "headers": {
+        "Authorization": "Bearer <YOUR_BEARER_SECRET>"
+      }
+    }
+  }
+}

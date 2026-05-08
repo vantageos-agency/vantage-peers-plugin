@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "name": "vantage-peers-plugin",
+  "description": "Plug-and-play kit for VantagePeers MCP — expert agent, autonomous skills, CLAUDE.md template, .mcp.json template",
+  "owner": {
+    "name": "vantageos-agency",
+    "url": "https://github.com/vantageos-agency"
+  },
+  "repository": "https://github.com/vantageos-agency/vantage-peers-plugin",
+  "plugins": [
+    {
+      "name": "vantage-peers",
+      "version": "1.0.0",
+      "description": "Plug-and-play kit for VantagePeers MCP — expert agent, 5 autonomous skills, CLAUDE.md protocol template, .mcp.json config template. Persistent memory, multi-orchestrator messaging, task coordination for agent swarms.",
+      "path": "./vantage-peers",
+      "installCommand": "/plugin install vantage-peers@vantage-peers-plugin",
+      "homepage": "https://github.com/vantageos-agency/vantage-peers-plugin",
+      "keywords": ["mcp", "claude-code", "memory", "agents"],
+      "author": {
+        "name": "VantageOS",
+        "email": "hello@vantageos.agency"
+      },
+      "license": "Proprietary"
+    }
+  ]
+}
