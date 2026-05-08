@@ -13,14 +13,14 @@ The `vantage-peers` plugin wires Claude Code to a VantagePeers MCP backend. It p
 ## Prerequisites
 
 - A deployed VantagePeers MCP server. Two options:
-  - **Railway one-click** — deploy template at [vantagepeers.com/deploy](https://vantagepeers.com/docs/deploy) (recommended, ~3 minutes)
-  - **Convex self-host** — follow [vantagepeers.com/docs/self-host](https://vantagepeers.com/docs/self-host)
+  - **Railway one-click** — deploy template at [vantagepeers.com/railway](https://vantagepeers.com/railway) (recommended, ~3 minutes)
+  - **Convex self-host** — follow the [VantagePeers docs](https://vantagepeers.com/docs)
 - Claude Code with plugins support
 - Your Railway deployment URL and bearer secret (set as `BEARER_SECRET` env var in Railway)
 
 ### Claude.ai web also supported
 
-If you use Claude.ai web in addition to (or instead of) Claude Code, VantagePeers supports it natively via OAuth 2.1 Dynamic Client Registration. Once your Railway MCP server is running, go to claude.ai → Settings → Integrations → Custom MCP servers, paste your Railway URL, and authorize. No bearer token or plugin install required — all 82 tools are available immediately. Full instructions at [vantagepeers.com/docs/install](https://vantagepeers.com/docs/install).
+If you use Claude.ai web in addition to (or instead of) Claude Code, VantagePeers supports it natively via OAuth 2.1 Dynamic Client Registration. Once your Railway MCP server is running, go to claude.ai → Settings → Integrations → Custom MCP servers, paste your Railway URL, and authorize. No bearer token or plugin install required — all 82 tools are available immediately. Full instructions in the [VantagePeers docs](https://vantagepeers.com/docs).
 
 ---
 
@@ -133,7 +133,7 @@ Part of the VantagePeers ecosystem — published by VantageOS at vantagepeers.co
 ## Links
 
 - VantagePeers docs: [vantagepeers.com/docs](https://vantagepeers.com/docs)
-- Railway deploy template: [vantagepeers.com/deploy](https://vantagepeers.com/docs/deploy)
+- Railway deploy template: [vantagepeers.com/railway](https://vantagepeers.com/railway)
 - Plugin source: [github.com/vantageos-agency/plugins](https://github.com/vantageos-agency/plugins)
 - VantageOS agency: [vantageos.agency](https://vantageos.agency)
 

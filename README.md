@@ -9,8 +9,8 @@ This repo is a single-plugin marketplace. It contains the `vantage-peers` plugin
 ## Prerequisites
 
 - A deployed VantagePeers MCP server. Two options:
-  - **Railway one-click** — deploy template at [vantagepeers.com/deploy](https://vantagepeers.com/docs/deploy) (~3 minutes)
-  - **Convex self-host** — follow [vantagepeers.com/docs/self-host](https://vantagepeers.com/docs/self-host)
+  - **Railway one-click** — deploy template at [vantagepeers.com/railway](https://vantagepeers.com/railway) (~3 minutes)
+  - **Convex self-host** — follow the [VantagePeers docs](https://vantagepeers.com/docs)
 - Claude Code with plugins support
 
 ---
@@ -51,7 +51,7 @@ cp -r vantage-peers-plugin/vantage-peers ~/.claude/plugins/
 ## Links
 
 - VantagePeers docs: [vantagepeers.com/docs](https://vantagepeers.com/docs)
-- Railway deploy: [vantagepeers.com/deploy](https://vantagepeers.com/docs/deploy)
+- Railway deploy: [vantagepeers.com/railway](https://vantagepeers.com/railway)
 - VantageOS agency: [vantageos.agency](https://vantageos.agency)
 
 ---
