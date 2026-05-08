@@ -18,6 +18,10 @@ The `vantage-peers` plugin wires Claude Code to a VantagePeers MCP backend. It p
 - Claude Code with plugins support
 - Your Railway deployment URL and bearer secret (set as `BEARER_SECRET` env var in Railway)
 
+### Claude.ai web also supported
+
+If you use Claude.ai web in addition to (or instead of) Claude Code, VantagePeers supports it natively via OAuth 2.1 Dynamic Client Registration. Once your Railway MCP server is running, go to claude.ai → Settings → Integrations → Custom MCP servers, paste your Railway URL, and authorize. No bearer token or plugin install required — all 82 tools are available immediately. Full instructions at [vantagepeers.com/docs/install](https://vantagepeers.com/docs/install).
+
 ---
 
 ## Install
