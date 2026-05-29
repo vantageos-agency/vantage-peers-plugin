@@ -1,35 +1,13 @@
 {
   "name": "vantage-peers",
   "version": "2.4.0",
-  "description": "Plug-and-play VantagePeers toolkit — skills + hooks + commands + expert agent for any Claude Code workspace consuming a VantagePeers MCP server. Companion to vantage-peers-mcp npm v2.4.x.",
+  "description": "9 skills + 7 hooks + 9 commands + 1 expert agent for VantagePeers MCP. Persistent memory, multi-orchestrator messaging, task coordination for Claude Code agent swarms. Companion to vantage-peers-mcp npm v2.4.x.",
   "author": {
-    "name": "vantageos-agency",
+    "name": "VantageOS",
     "email": "hello@vantageos.agency"
   },
-  "skills": [
-    "skills/check-messages/SKILL.md",
-    "skills/check-tasks/SKILL.md",
-    "skills/close-day/SKILL.md",
-    "skills/daily-start/SKILL.md",
-    "skills/pre-compact/SKILL.md",
-    "skills/recall/SKILL.md",
-    "skills/standup/SKILL.md",
-    "skills/vantage-peers-init/SKILL.md",
-    "skills/write-diary/SKILL.md"
-  ],
-  "hooks": "hooks/hooks.json",
-  "commands": [
-    "commands/check-messages.md",
-    "commands/check-tasks.md",
-    "commands/close-day.md",
-    "commands/daily-start.md",
-    "commands/pre-compact.md",
-    "commands/recall.md",
-    "commands/standup.md",
-    "commands/vantage-peers-init.md",
-    "commands/write-diary.md"
-  ],
-  "agents": [
-    "agents/vantage-peers-expert.md"
-  ]
+  "homepage": "https://github.com/vantageos-agency/vantage-peers-plugin",
+  "repository": "https://github.com/vantageos-agency/vantage-peers-plugin",
+  "license": "Proprietary",
+  "keywords": ["mcp", "claude-code", "memory", "agents", "vantage-peers"]
 }
