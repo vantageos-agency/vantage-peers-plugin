@@ -90,7 +90,7 @@ All 3 checks (registration, connectivity, auth) must show PASS.
 
 ---
 
-## Commands (8 slash commands)
+## Commands (9 slash commands)
 
 | Command | What it does |
 |---------|-------------|
@@ -106,7 +106,7 @@ All 3 checks (registration, connectivity, auth) must show PASS.
 
 ---
 
-## Hooks (5)
+## Hooks (7)
 
 | Hook | What it enforces |
 |------|-----------------|
@@ -115,6 +115,8 @@ All 3 checks (registration, connectivity, auth) must show PASS.
 | `enforce-task-quality` | Every new task must include VERIFICATION and TESTS sections in its description |
 | `block-time-estimates` | Effort/duration estimates in content are blocked — use TBD or omit |
 | `auto-compact-reminder` | Reminds to compact at 35 tool calls, then every 15 |
+| `enforce-mission-template` | Every `create_mission` call must reference a Mission Template (`templateId` field). Prevents missions without structured plans. |
+| `enforce-brief-template` | Every `Task` (subagent dispatch) brief must include a `Template reference:` line — keeps delegated work structured. |
 
 ---
 

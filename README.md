@@ -2,7 +2,7 @@
 
 Official Claude Code plugin for [VantagePeers](https://vantagepeers.com) — the persistent memory and multi-orchestrator coordination MCP server for agent swarms.
 
-This repo is the distribution package for VantagePeers clients. It contains the `vantage-peers` plugin (v2.4.0) with everything needed to make any Claude Code workspace VP-fluent immediately: expert agent, 9 autonomous skills, 8 slash commands, 5 quality-enforcement hooks, CLAUDE.md protocol template, and .mcp.json config template.
+This repo is the distribution package for VantagePeers clients. It contains the `vantage-peers` plugin (v2.4.0) with everything needed to make any Claude Code workspace VP-fluent immediately: expert agent, 9 autonomous skills, 9 slash commands, 7 quality-enforcement hooks, CLAUDE.md protocol template, and .mcp.json config template.
 
 ---
 
@@ -46,7 +46,7 @@ cp -r vantage-peers-plugin/vantage-peers ~/.claude/plugins/
 | `vantage-peers-init` | "verify VP setup", "VP smoke test", "init vantage-peers" | Smoke-test MCP registration, connectivity, and auth |
 | `write-diary` | "write diary", "diary entry", "log today", "journal entry" | Write a structured diary entry to VantagePeers |
 
-### Commands (8 slash commands)
+### Commands (9 slash commands)
 
 | Command | What it does |
 |---------|-------------|
@@ -60,7 +60,7 @@ cp -r vantage-peers-plugin/vantage-peers ~/.claude/plugins/
 | `/vantage-peers-init` | Verify setup |
 | `/write-diary` | Write diary entry |
 
-### Hooks (5 quality-enforcement hooks)
+### Hooks (7 quality-enforcement hooks)
 
 | Hook | Trigger | Effect |
 |------|---------|--------|
@@ -69,6 +69,8 @@ cp -r vantage-peers-plugin/vantage-peers ~/.claude/plugins/
 | `enforce-task-quality` | `create_task` | Blocks task creation without VERIFICATION and TESTS sections |
 | `block-time-estimates` | Edit, Write, VP tool calls | Blocks effort/duration estimates in content |
 | `auto-compact-reminder` | Every tool call | Reminds to compact after 35 tool calls, then every 15 |
+| `enforce-mission-template` | `create_mission` | Blocks mission creation without a Mission Template reference (`templateId`) |
+| `enforce-brief-template` | `Task` (subagent dispatch) | Blocks subagent briefs without a `Template reference:` line — keeps delegated work structured |
 
 ### Agent
 

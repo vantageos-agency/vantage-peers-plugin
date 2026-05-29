@@ -4,6 +4,7 @@
 **Mission task:** k170mmqpx65jmmvzknj5svxgax87nhfj (VOLET B)
 **Auditor:** Sigma — VantageOS Team
 **Validator gate:** Laurent (per Day 86 doctrine, Laurent tranche public/internal/BU)
+**Laurent ack date:** 2026-05-29 — with 2 reclassifications (see "Laurent reclassification" below)
 
 The `vantage-peers` Claude Code plugin ships the public subset only. Internal Fleet and BU-specific artefacts stay in their source workspaces. This document is the canonical classification reference for the v2.4.0 release; it is updated whenever the plugin scope changes.
 
@@ -25,7 +26,7 @@ The `vantage-peers` Claude Code plugin ships the public subset only. Internal Fl
 | vantage-peers-init | Initialize a new workspace with VP MCP wiring, .mcp.json + CLAUDE.md template. |
 | write-diary | Write a daily diary entry via VP write_diary tool. |
 
-### Hooks (5)
+### Hooks (7)
 
 | Name | Trigger | One-line purpose |
 |------|---------|------------------|
@@ -34,6 +35,8 @@ The `vantage-peers` Claude Code plugin ships the public subset only. Internal Fl
 | enforce-task-quality.py | PreToolUse on create_task | Requires VERIFICATION + TESTS sections in task descriptions. |
 | block-time-estimates.py | PreToolUse on create_task / update_task | Blocks effort-estimate language (hours / days / weeks) in task descriptions. |
 | auto-compact-reminder.py | SessionStart / Stop | Reminds user to invoke pre-compact when context window approaches threshold. |
+| enforce-mission-template.py | PreToolUse on create_mission | Blocks mission creation without a Mission Template reference (templateId field). Keeps missions structured. |
+| enforce-brief-template.py | PreToolUse on Task (subagent dispatch) | Blocks subagent briefs without a `Template reference:` line. Keeps delegated work structured. |
 
 ### Slash commands (9)
 
@@ -61,7 +64,7 @@ The `vantage-peers` Claude Code plugin ships the public subset only. Internal Fl
 
 Fleet orchestration conventions tied to VantageOS Pi/Sigma routing. Would override client conventions or break in non-fleet environments.
 
-### Internal Fleet hooks (17)
+### Internal Fleet hooks (15)
 
 | Name | Rationale |
 |------|-----------|
@@ -76,12 +79,10 @@ Fleet orchestration conventions tied to VantageOS Pi/Sigma routing. Would overri
 | enforce-ship-24-7.py | Fleet shipping policy constraint. |
 | enforce-decisive-messaging.py | Fleet voice/tone convention. |
 | enforce-component-brief.py | Fleet component brief template enforcement. |
-| enforce-mission-template.py | Fleet mission creation template. |
 | enforce-merge-gate.py | Fleet merge gate convention (Eta APPROVED + Pi GO MERGE override). |
 | enforce-irp-sequence.py | IRP cascade Pi pattern. Fleet incident response. |
 | irp-breadcrumb.py | IRP breadcrumb for fleet incident response. |
 | strip-claude-from-pr.py | Removes Claude Code branding from PRs. Fleet PR hygiene. |
-| enforce-brief-template.py | Pi brief template enforcement for subagent dispatch. |
 
 ### Internal Fleet skills (1)
 
@@ -113,14 +114,23 @@ Hardcoded to specific Business Unit workflows (Chi / Athena / Demeter / Hermes /
 
 ---
 
-## Totals
+## Totals (post Laurent ack)
 
 | Bucket | Count |
 |--------|-------|
-| PUBLIC (shipped v2.4.0) | 9 skills + 5 hooks + 9 commands + 1 agent = **24** |
-| INTERNAL Fleet (not shipped) | 17 hooks + 1 skill = **18** |
+| PUBLIC (shipped v2.4.0) | 9 skills + 7 hooks + 9 commands + 1 agent = **26** |
+| INTERNAL Fleet (not shipped) | 15 hooks + 1 skill = **16** |
 | BU-specific (not shipped) | 5 hooks + 1 skill = **6** |
 | Total artefacts audited | **48** |
+
+## Laurent reclassification (2026-05-29)
+
+Initial Sigma audit posted as 24 / 18 / 6 (briefing js77xfywc2tf2nz8753k97wnfd87mvqq, commit ae6ba33). Laurent acked the buckets with 2 reclassifications:
+
+- **enforce-mission-template.py** — Internal Fleet → **PUBLIC**. Mission Templates are a generic VP concept (any consumer using `create_mission` benefits); not fleet-specific.
+- **enforce-brief-template.py** — Internal Fleet → **PUBLIC**. Subagent brief template discipline is a generic Claude Code quality gate (any consumer dispatching subagents benefits); not fleet-specific.
+
+Net effect: PUBLIC grew from 24 → 26 (5 → 7 hooks). INTERNAL Fleet shrank from 18 → 16 (17 → 15 hooks). BU bucket unchanged at 6.
 
 ---
 

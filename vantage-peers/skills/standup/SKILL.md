@@ -21,7 +21,7 @@ Generate a structured standup report and file it as a briefing note in VantagePe
 4. Get git state: `git status --short` and `git log --oneline -10`
 5. Build the report (see format below)
 6. File: `mcp__vantage-peers__create_briefing_note` title="Standup {role} {date}", topic="standup", participants=["{role}"], createdBy="{role}"
-7. Optionally ping your team coordinator: `mcp__vantage-peers__send_message` from="{role}", content="Standup filed -- {summary}"
+7. Optionally ping your team coordinator. Read `STANDUP_CHANNEL` from your workspace `CLAUDE.md` (a single line `STANDUP_CHANNEL: <channel-name>`). If set, call `mcp__vantage-peers__send_message` channel=`<channel-name>`, from="{role}", content="Standup filed -- {summary}". If `STANDUP_CHANNEL` is absent, skip the ping silently — no hardcoded fallback.
 
 ## OUTPUT FORMAT
 
@@ -52,3 +52,15 @@ GIT:
 - If nothing done, say so. No padding.
 - The briefing note is the permanent record. The message is just a ping.
 - 5 lines beats 50.
+
+## CONFIGURATION (client-facing)
+
+The optional team-coordinator ping (step 7) reads its target from your workspace `CLAUDE.md`. Add a single line:
+
+```
+STANDUP_CHANNEL: team-coord
+```
+
+Replace `team-coord` with whatever channel name your team uses (e.g. `eng-leads`, `daily-standups`, `you@yourdomain.com` for a direct DM channel). If you omit this line, step 7 is skipped — only the briefing note is filed.
+
+This skill ships with **no hardcoded fallback channel**. The plugin is client-agnostic; configure it for your workspace, not ours.

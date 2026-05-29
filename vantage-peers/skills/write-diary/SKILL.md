@@ -9,6 +9,12 @@ user-invocable: true
 allowed-tools: mcp__vantage-peers__*, Bash(date)
 ---
 
+<!--
+  Provenance: thin wrapper around VP `write_diary` MCP tool. Plugin-native
+  (no fleet source dependency). Created for this plugin; not derived from a
+  fleet workspace skill. Safe to ship to any client.
+-->
+
 Write a structured diary entry to VantagePeers for today.
 
 ## WORKFLOW
