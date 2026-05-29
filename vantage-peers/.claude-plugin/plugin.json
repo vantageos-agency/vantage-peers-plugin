@@ -1,17 +1,33 @@
 {
   "name": "vantage-peers",
-  "version": "1.0.0",
-  "description": "Plug-and-play kit for VantagePeers MCP — expert agent, autonomous skills, CLAUDE.md template, .mcp.json template. Use after deploying your own VantagePeers MCP server (via Railway template or Convex self-host) to make any Claude Code workspace VP-fluent immediately.",
+  "version": "2.4.0",
+  "description": "Plug-and-play VantagePeers toolkit — skills + hooks + commands + expert agent for any Claude Code workspace consuming a VantagePeers MCP server. Companion to vantage-peers-mcp npm v2.4.x.",
   "author": {
     "name": "vantageos-agency",
     "email": "hello@vantageos.agency"
   },
   "skills": [
     "skills/check-messages/SKILL.md",
+    "skills/check-tasks/SKILL.md",
     "skills/close-day/SKILL.md",
     "skills/daily-start/SKILL.md",
     "skills/pre-compact/SKILL.md",
-    "skills/vantage-peers-init/SKILL.md"
+    "skills/recall/SKILL.md",
+    "skills/standup/SKILL.md",
+    "skills/vantage-peers-init/SKILL.md",
+    "skills/write-diary/SKILL.md"
+  ],
+  "hooks": "hooks/hooks.json",
+  "commands": [
+    "commands/check-messages.md",
+    "commands/check-tasks.md",
+    "commands/close-day.md",
+    "commands/daily-start.md",
+    "commands/pre-compact.md",
+    "commands/recall.md",
+    "commands/standup.md",
+    "commands/vantage-peers-init.md",
+    "commands/write-diary.md"
   ],
   "agents": [
     "agents/vantage-peers-expert.md"
