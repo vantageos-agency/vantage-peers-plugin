@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "vantage-peers-plugin",
-  "description": "Plug-and-play kit for VantagePeers MCP — expert agent, autonomous skills, CLAUDE.md template, .mcp.json template",
+  "description": "Plug-and-play VantagePeers toolkit — 9 skills + 7 hooks + 9 commands + 1 expert agent for any Claude Code workspace consuming a VantagePeers MCP server. Companion to vantage-peers-mcp npm v2.4.x.",
   "owner": {
     "name": "vantageos-agency",
     "url": "https://github.com/vantageos-agency"
@@ -10,12 +10,13 @@
   "plugins": [
     {
       "name": "vantage-peers",
-      "version": "1.0.1",
-      "description": "Plug-and-play kit for VantagePeers MCP — expert agent, 5 autonomous skills, CLAUDE.md protocol template, .mcp.json config template. Persistent memory, multi-orchestrator messaging, task coordination for agent swarms. — Compatible with Claude Code, Claude Desktop, and Claude.ai web (OAuth 2.1 DCR).",
-      "path": "./vantage-peers",
-      "installCommand": "/plugin install vantage-peers@vantage-peers-plugin",
+      "version": "2.4.0",
+      "description": "9 skills + 7 hooks + 9 commands + 1 expert agent for VantagePeers MCP. Persistent memory, multi-orchestrator messaging, task coordination for Claude Code agent swarms.",
+      "source": "./vantage-peers",
+      "category": "productivity",
       "homepage": "https://github.com/vantageos-agency/vantage-peers-plugin",
-      "keywords": ["mcp", "claude-code", "memory", "agents"],
+      "repository": "https://github.com/vantageos-agency/vantage-peers-plugin",
+      "keywords": ["mcp", "claude-code", "memory", "agents", "vantage-peers"],
       "author": {
         "name": "VantageOS",
         "email": "hello@vantageos.agency"

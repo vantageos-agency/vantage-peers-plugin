@@ -1,60 +1,40 @@
 # vantage-peers plugin
 
-Plug-and-play kit for [VantagePeers](https://vantagepeers.com) MCP. Install this plugin after deploying your VantagePeers MCP server to make any Claude Code workspace VP-fluent immediately: expert agent, 5 autonomous skills, CLAUDE.md protocol template, and .mcp.json config template — all bundled and ready.
+Plug-and-play VantagePeers toolkit — skills + hooks + commands + expert agent for any Claude Code workspace consuming a VantagePeers MCP server. Companion to `vantage-peers-mcp` npm v2.4.x.
 
----
-
-## What this plugin does
-
-The `vantage-peers` plugin wires Claude Code to a VantagePeers MCP backend. It provides an expert agent that knows all ~82 VP tools and their correct usage, five skills covering the full orchestrator lifecycle (morning planning, messaging, session snapshots, day close, and setup verification), and two templates that make new workspace onboarding a 4-step process instead of a half-day configuration exercise. Designed for the VantageOS agent swarm workflow where multiple orchestrators (Pi, Sigma, Tau, etc.) coordinate via shared memory, tasks, missions, and real-time messaging.
+Install once, connect to a VantagePeers MCP server, and every Claude Code orchestrator in your workspace gains full VP fluency: messaging, memory, tasks, missions, diary, standup, and session management — all out of the box.
 
 ---
 
 ## Prerequisites
 
-- A deployed VantagePeers MCP server. Two options:
-  - **Railway one-click** — deploy template at [vantagepeers.com/railway](https://vantagepeers.com/railway) (recommended, ~3 minutes)
-  - **Convex self-host** — follow the [VantagePeers docs](https://vantagepeers.com/docs)
+- A deployed VantagePeers MCP server (Railway one-click at [vantagepeers.com/railway](https://vantagepeers.com/railway) or Convex self-host)
 - Claude Code with plugins support
-- Your Railway deployment URL and bearer secret (set as `BEARER_SECRET` env var in Railway)
+- Your deployment URL and bearer secret
 
 ### Claude.ai web also supported
 
-If you use Claude.ai web in addition to (or instead of) Claude Code, VantagePeers supports it natively via OAuth 2.1 Dynamic Client Registration. Once your Railway MCP server is running, go to claude.ai → Settings → Integrations → Custom MCP servers, paste your Railway URL, and authorize. No bearer token or plugin install required — all 82 tools are available immediately. Full instructions in the [VantagePeers docs](https://vantagepeers.com/docs).
+VantagePeers supports Claude.ai web natively via OAuth 2.1 Dynamic Client Registration. Once your Railway MCP server is running, go to claude.ai → Settings → Integrations → Custom MCP servers, paste your Railway URL, and authorize. No bearer token or plugin install required. Full instructions at [vantagepeers.com/docs](https://vantagepeers.com/docs).
 
 ---
 
 ## Install
 
-### Option A — Marketplace install (recommended)
-
 ```
-/plugin marketplace add vantageos-agency/plugins
-/plugin install vantage-peers@vantageos-plugins
+claude plugin install vantage-peers
 ```
-
-### Option B — Manual clone
-
-For air-gapped or offline setups, or when plugin install is unavailable:
-
-```bash
-git clone https://github.com/vantageos-agency/plugins.git
-cp -r plugins/vantage-peers ~/.claude/plugins/
-```
-
-The `vantage-peers/` folder is fully self-contained — no symlinks, no cross-folder file references. Verified: `find vantage-peers/ -type l` returns 0 results.
 
 ---
 
-## Quick start
+## Quick start (5 minutes)
 
 **Step 1 — Deploy MCP server**
 
-Deploy to Railway using the one-click template. Note your deployment URL (e.g. `https://vantage-peers-abc123.railway.app`) and the `BEARER_SECRET` you configured.
+Deploy to Railway: [vantagepeers.com/railway](https://vantagepeers.com/railway). Note your URL (e.g. `https://vantage-peers-abc123.railway.app`) and `BEARER_SECRET`.
 
 **Step 2 — Configure .mcp.json**
 
-Copy `templates/.mcp.json.template` to `.mcp.json` in your workspace (or to `~/.claude.json` for global access):
+Copy `templates/.mcp.json.template` to `.mcp.json` in your workspace:
 
 ```json
 {
@@ -74,27 +54,69 @@ Restart Claude Code after saving.
 
 **Step 3 — Append CLAUDE.md template**
 
-Append the contents of `templates/CLAUDE.md.append` to the bottom of your workspace `CLAUDE.md`. This installs the VantagePeers workflow protocols (recall-before-assumptions, task protocol, namespace conventions) into your orchestrator's operating instructions.
+Append `templates/CLAUDE.md.append` to the bottom of your workspace `CLAUDE.md`. This installs the VantagePeers workflow protocols (recall-before-assumptions, task protocol, namespace conventions).
 
-**Step 4 — Run init skill**
+**Step 4 — Run init**
 
 ```
 /vantage-peers-init
 ```
 
-All 3 checks (registration, connectivity, auth) must show PASS. The skill outputs a report with specific fixes for any failure.
+All 3 checks (registration, connectivity, auth) must show PASS.
+
+**Step 5 — First commands**
+
+```
+/check-messages
+/check-tasks
+/daily-start
+```
 
 ---
 
-## Skills
+## Skills (9)
 
 | Skill | Trigger phrases | What it does |
 |-------|----------------|--------------|
-| `/vantage-peers-init` | "verify VP setup", "VP smoke test", "init vantage-peers", "test VP connection" | Verifies MCP registration, tests `/health` endpoint, smoke-tests auth via `recall`. Outputs PASS/FAIL report with fixes. |
-| `/check-messages` | "check messages", "any messages", "inbox", "peers" | Polls unread messages, marks read, auto-picks next task (autonomous mode) or displays for human. |
-| `/daily-start` | "start the day", "morning plan", "daily planning", "what's on my plate" | Session-start routine: loads context from VP, presents routines (human) or auto-picks highest-priority task (autonomous). |
-| `/close-day` | "close day", "end of day", "wrap up", "close session" | Updates task statuses, writes diary entry, stores session summary, calls `set_summary` to closed. |
-| `/pre-compact` | "save context", "before compaction", "snapshot session", "/pre-compact" | Saves full session state (missions + tasks + blockers + 3-line summary) as memory + briefing note before Claude Code compaction. |
+| `/vantage-peers-init` | "verify VP setup", "VP smoke test", "init vantage-peers" | Verifies MCP registration, tests `/health`, smoke-tests auth via `recall`. PASS/FAIL report with fixes. |
+| `/check-messages` | "check messages", "any messages", "inbox", "peers" | Polls unread messages, marks read, auto-picks next task (autonomous) or displays (human). |
+| `/check-tasks` | "my tasks", "task list", "what should I work on", "backlog" | Fetches all assigned tasks, filters done, sorts by priority, flags blocked tasks. |
+| `/daily-start` | "start the day", "morning plan", "daily planning", "session start" | Loads VP context, presents plan for operator (human) or auto-picks highest-priority task (autonomous). |
+| `/close-day` | "close day", "end of day", "wrap up", "close session" | Updates task statuses, writes diary, stores session summary, calls `set_summary` to closed. |
+| `/pre-compact` | "save context", "before compaction", "snapshot session" | Saves full session state (missions + tasks + blockers + 3-line summary) as memory + briefing note. |
+| `/recall` | "recall", "search memory", "what do we know about", "look up" | Semantic + BM25 hybrid search across VP memories. Auto-detects namespace from query. |
+| `/standup` | "standup", "status report", "daily report", "sitrep" | Generates structured standup (DONE / IN PROGRESS / BLOCKERS / GIT) + files briefing note. |
+| `/write-diary` | "write diary", "diary entry", "log today", "journal entry" | Asks one question then writes a structured diary entry with highlights + blockers. |
+
+---
+
+## Commands (9 slash commands)
+
+| Command | What it does |
+|---------|-------------|
+| `/check-messages` | Poll inbox + auto-pick next task |
+| `/check-tasks` | List your task queue |
+| `/close-day` | EOD wrap routine |
+| `/daily-start` | Morning session start |
+| `/pre-compact` | Snapshot before compaction |
+| `/recall <query>` | Search memories |
+| `/standup` | File standup report |
+| `/vantage-peers-init` | Verify setup |
+| `/write-diary` | Write diary entry |
+
+---
+
+## Hooks (7)
+
+| Hook | What it enforces |
+|------|-----------------|
+| `enforce-evidence-bound-completion` | Every task closure must cite verifiable proof (URL, commit SHA, PR#, test ratio, file path) |
+| `enforce-no-task-in-message` | Inter-orchestrator messages with imperative instructions must reference a task ID |
+| `enforce-task-quality` | Every new task must include VERIFICATION and TESTS sections in its description |
+| `block-time-estimates` | Effort/duration estimates in content are blocked — use TBD or omit |
+| `auto-compact-reminder` | Reminds to compact at 35 tool calls, then every 15 |
+| `enforce-mission-template` | Every `create_mission` call must reference a Mission Template (`templateId` field). Prevents missions without structured plans. |
+| `enforce-brief-template` | Every `Task` (subagent dispatch) brief must include a `Template reference:` line — keeps delegated work structured. |
 
 ---
 
@@ -102,41 +124,27 @@ All 3 checks (registration, connectivity, auth) must show PASS. The skill output
 
 | Agent | Trigger phrases | What it does |
 |-------|----------------|--------------|
-| `vantage-peers-expert` | "store this", "recall X", "create task", "set up VP", "what's in memory", "send message to pi", "VP namespace", "fix pattern" | Full VP MCP specialist. Knows all tools, namespaces, memory types, task protocol, T-VERIFY doctrine. Routes to skills for lifecycle operations. |
+| `vantage-peers-expert` | "store this", "recall X", "create task", "set up VP", "what's in memory", "VP namespace", "fix pattern" | Full VP MCP specialist. Knows all ~82 tools, namespace conventions, memory types, T-VERIFY doctrine. |
 
 ---
 
 ## Templates
 
-| Template | Location | Use |
-|----------|----------|-----|
-| `CLAUDE.md.append` | `templates/CLAUDE.md.append` | Append to workspace CLAUDE.md to install VP workflow protocols |
-| `.mcp.json.template` | `templates/.mcp.json.template` | Copy and fill in URL + bearer secret for MCP registration |
-
----
-
-## Hooks
-
-Hooks folder is intentionally empty in v1.0.0. v1.1 will add:
-- `enforce-mcp-first.py` — blocks VP tool calls without a registered MCP server
-
----
-
-## Sellable as
-
-Any agency or developer running a Claude Code agent swarm who needs persistent shared memory, multi-orchestrator messaging, and task coordination out of the box. Install once, connect to a Railway-hosted MCP server, and every orchestrator in the swarm (Pi, Sigma, Tau, etc.) gains full VP fluency without manual configuration. Target buyers: VantageOS resellers, technical founders managing autonomous agent pipelines, and agencies delivering Claude Code-based automation to clients.
-
-Part of the VantagePeers ecosystem — published by VantageOS at vantagepeers.com.
+| Template | Use |
+|----------|-----|
+| `CLAUDE.md.append` | Append to workspace CLAUDE.md to install VP workflow protocols |
+| `.mcp.json.template` | Copy and fill in URL + bearer secret for MCP registration |
 
 ---
 
 ## Links
 
 - VantagePeers docs: [vantagepeers.com/docs](https://vantagepeers.com/docs)
-- Railway deploy template: [vantagepeers.com/railway](https://vantagepeers.com/railway)
-- Plugin source: [github.com/vantageos-agency/plugins](https://github.com/vantageos-agency/plugins)
-- VantageOS agency: [vantageos.agency](https://vantageos.agency)
+- Toolkit reference: [vantagepeers.com/docs/toolkit](https://vantagepeers.com/docs/toolkit)
+- Railway deploy: [vantagepeers.com/railway](https://vantagepeers.com/railway)
+- Plugin source: [github.com/vantageos-agency/vantage-peers-plugin](https://github.com/vantageos-agency/vantage-peers-plugin)
+- VantageOS: [vantageos.agency](https://vantageos.agency)
 
 ---
 
-Built by [vantageos-agency](https://vantageos.agency).
+Built by [vantageos-agency](https://vantageos.agency). Part of the VantagePeers ecosystem.
