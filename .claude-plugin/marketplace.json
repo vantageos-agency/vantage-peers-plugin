@@ -15,6 +15,7 @@
       "source": "./vantage-peers",
       "category": "productivity",
       "homepage": "https://github.com/vantageos-agency/vantage-peers-plugin",
+      "repository": "https://github.com/vantageos-agency/vantage-peers-plugin",
       "keywords": ["mcp", "claude-code", "memory", "agents", "vantage-peers"],
       "author": {
         "name": "VantageOS",
