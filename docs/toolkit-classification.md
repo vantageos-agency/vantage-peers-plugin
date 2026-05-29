@@ -10,7 +10,7 @@ The `vantage-peers` Claude Code plugin ships the public subset only. Internal Fl
 
 ---
 
-## Bucket 1 — PUBLIC (24 artefacts) — shipped in plugin v2.4.0
+## Bucket 1 — PUBLIC (26 artefacts) — shipped in plugin v2.4.0
 
 ### Skills (9)
 
@@ -60,7 +60,7 @@ The `vantage-peers` Claude Code plugin ships the public subset only. Internal Fl
 
 ---
 
-## Bucket 2 — INTERNAL Fleet (18 artefacts) — NOT shipped
+## Bucket 2 — INTERNAL Fleet (16 artefacts) — NOT shipped
 
 Fleet orchestration conventions tied to VantageOS Pi/Sigma routing. Would override client conventions or break in non-fleet environments.
 

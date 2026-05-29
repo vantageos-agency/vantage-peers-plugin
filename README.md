@@ -18,7 +18,8 @@ This repo is the distribution package for VantagePeers clients. It contains the 
 ## Install
 
 ```
-claude plugin install vantage-peers
+claude plugin marketplace add vantageos-agency/vantage-peers-plugin
+claude plugin install vantage-peers@vantage-peers-plugin
 ```
 
 ### Option B — Manual clone
