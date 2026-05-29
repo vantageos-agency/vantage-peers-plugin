@@ -21,7 +21,8 @@ VantagePeers supports Claude.ai web natively via OAuth 2.1 Dynamic Client Regist
 ## Install
 
 ```
-claude plugin install vantage-peers
+claude plugin marketplace add vantageos-agency/vantage-peers-plugin
+claude plugin install vantage-peers@vantage-peers-plugin
 ```
 
 ---
